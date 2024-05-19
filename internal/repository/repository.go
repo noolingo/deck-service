@@ -14,6 +14,7 @@ type Repository interface {
 	RemoveDeck(ctx context.Context, deckID string) error
 	AddCard(ctx context.Context, deckID, cardID string) error
 	RemoveCard(ctx context.Context, deckID, cardID string) error
+	GetDeckCards(ctx context.Context, deckID string) ([]string, error)
 }
 
 func New(db *sql.DB) Repository {

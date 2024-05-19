@@ -11,28 +11,32 @@ type deck struct {
 	db *sql.DB
 }
 
-func (d deck) NewDeck(ctx context.Context, id string, name string, description string) error {
+func (d *deck) NewDeck(ctx context.Context, id string, name string, description string) error {
 	panic("not implemented") // TODO: Implement
 }
 
-func (d deck) ListDecks(ctx context.Context, userID string) ([]*domain.Deck, error) {
+func (d *deck) ListDecks(ctx context.Context, userID string) ([]*domain.Deck, error) {
 	panic("not implemented") // TODO: Implement
 }
 
-func (d deck) GetDeck(ctx context.Context, deckID string) (*domain.Deck, error) {
+func (d *deck) GetDeck(ctx context.Context, deckID string) (*domain.Deck, error) {
 	panic("not implemented") // TODO: Implement
 }
 
-func (d deck) RemoveDeck(ctx context.Context, deckID string) error {
+func (d *deck) RemoveDeck(ctx context.Context, deckID string) error {
 	panic("not implemented") // TODO: Implement
 }
 
-func (d deck) AddCard(ctx context.Context, deckID string, cardID string) error {
+func (d *deck) AddCard(ctx context.Context, deckID string, cardID string) error {
 	panic("not implemented") // TODO: Implement
 }
 
-func (d deck) RemoveCard(ctx context.Context, deckID string, cardID string) error {
+func (d *deck) RemoveCard(ctx context.Context, deckID string, cardID string) error {
 	panic("not implemented") // TODO: Implement
+}
+
+func (d *deck) GetDeckCards(ctx context.Context, deckID string) ([]string, error) {
+	panic("not")
 }
 
 // func (c *card) GetCardByID(ctx context.Context, id ...string) ([]*domain.Card, error) {
