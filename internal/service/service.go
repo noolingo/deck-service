@@ -21,7 +21,12 @@ type Services struct {
 	Deck Deck
 }
 
+type GrpcClients interface {
+	CardExistsByID(ctx context.Context, cardID string) error
+}
+
 type Params struct {
+	GrpcClient GrpcClients
 	Logger     *logrus.Logger
 	Config     *domain.Config
 	Repository *repository.Repository

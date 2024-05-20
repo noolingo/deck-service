@@ -19,10 +19,12 @@ type DeckService struct {
 	logger     *logrus.Logger
 	Config     *domain.Config
 	repository repository.Repository
+	clients    GrpcClients
 }
 
 func NewDeckService(p *Params) *DeckService {
 	return &DeckService{
+		clients:    p.GrpcClient,
 		logger:     p.Logger,
 		repository: *p.Repository,
 		Config:     p.Config,
@@ -31,7 +33,7 @@ func NewDeckService(p *Params) *DeckService {
 
 func (d *DeckService) Create(ctx context.Context, userID string, name string, description string) (string, error) {
 	deckID := deckid.NewDeckID(userID)
-	err := d.repository.NewDeck(ctx, deckID, name, description)
+	err := d.repository.NewDeck(ctx)
 	if err != nil {
 		return "", err
 	}
@@ -67,6 +69,7 @@ func (d *DeckService) Get(ctx context.Context, userID string, deckID string) ([]
 	return cardIDs, err
 }
 
+// сделать запрос на CardService при помощи "клиента"
 func (d *DeckService) CardAdd(ctx context.Context, userID string, deckID string, cardID string) error {
 	userID2, err := deckid.ExtractUserID(deckID)
 	if err != nil {
@@ -74,6 +77,9 @@ func (d *DeckService) CardAdd(ctx context.Context, userID string, deckID string,
 	}
 	if userID2 != userID {
 		return apierrors.ErrForbidden
+	}
+	if err = d.clients.CardExistsByID(ctx, cardID); err != nil {
+		return err
 	}
 	err = d.repository.AddCard(ctx, deckID, cardID)
 	return err

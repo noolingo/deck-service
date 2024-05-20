@@ -11,6 +11,7 @@ import (
 	"github.com/noolingo/deck-service/internal/drivers/mysql"
 	"github.com/noolingo/deck-service/internal/repository"
 	"github.com/noolingo/deck-service/internal/service"
+	"github.com/noolingo/deck-service/internal/transport/grpc/clients"
 	grpcserver "github.com/noolingo/deck-service/internal/transport/grpc/server"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
@@ -38,8 +39,13 @@ func Run(config string) error {
 		return err
 	}
 
+	grpcClient, err := clients.NewClients(cfg.CardService)
+	if err != nil {
+		return err
+	}
 	r := repository.New(db)
 	s := service.New(&service.Params{
+		GrpcClient: grpcClient,
 		Logger:     log,
 		Config:     cfg,
 		Repository: &r,
