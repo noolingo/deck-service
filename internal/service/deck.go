@@ -33,7 +33,7 @@ func NewDeckService(p *Params) *DeckService {
 
 func (d *DeckService) Create(ctx context.Context, userID string, name string, description string) (string, error) {
 	deckID := deckid.NewDeckID(userID)
-	err := d.repository.NewDeck(ctx)
+	err := d.repository.NewDeck(ctx, deckID, userID, name, description)
 	if err != nil {
 		return "", err
 	}
