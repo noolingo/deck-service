@@ -78,6 +78,13 @@ func (d *DeckService) CardAdd(ctx context.Context, userID string, deckID string,
 	if userID2 != userID {
 		return apierrors.ErrForbidden
 	}
+	deck, err := d.repository.GetDeck(ctx, deckID)
+	if err != nil {
+		return err
+	}
+	if deck == nil {
+		return apierrors.ErrInvalidPayload
+	}
 	if err = d.clients.CardExistsByID(ctx, cardID); err != nil {
 		return err
 	}

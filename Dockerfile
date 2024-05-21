@@ -1,4 +1,4 @@
-ARG SERVICE=card-service
+ARG SERVICE=deck-service
 ARG TARGET_DIR=/app
 ARG GOBIN=/.gobin
 

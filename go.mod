@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/ilyakaznacheev/cleanenv v1.5.0
-	github.com/noolingo/proto v0.0.0-20240519115501-fe78052cd181
+	github.com/noolingo/proto v0.0.0-20240521113906-6efa32a598bc
 	github.com/oklog/ulid/v2 v2.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
